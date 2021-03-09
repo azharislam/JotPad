@@ -34,37 +34,33 @@ struct Home: View {
         NavigationView{
             //Drawing view
             DrawingView(canvas: $canvas, isDraw: $isDraw, type: $type, color: $color)
-                .navigationTitle("Jot")
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(leading: Button(action: {
-                   
                     saveImage()
-                   
+                    
                 }, label: {
-                    Image(systemName: "square.and.arrow.down.fill")
-                        .font(.title)
+                    Image("download")
+                        .resizable()
+                        .frame(width: 22, height: 22)
                 }), trailing: HStack(spacing: 15){
                     
                     Button(action: {
                         isDraw = false
                     }) {
-                        Image(systemName: "pencil.slash")
+                        Image("eraser")
+                            .resizable()
+                            .frame(width: 30, height: 30)
                             .font(.title)
                     }
                     
-                    //Menu for ink type and color
+                    ColorPicker(
+                        "",
+                        selection: $color
+                    ).frame(width: 22, height: 22)
+                    .padding()
+                    
                     Menu {
                         
-                        Button(action: {
-                            colorPicker.toggle()
-                        }) {
-                            Label {
-                                Text("Color")
-                            } icon: {
-                                Image(systemName: "eyedropper.full")
-                            }
-                        }
-
                         Button(action: {
                             
                             // changing type
@@ -105,22 +101,17 @@ struct Home: View {
                             .resizable()
                             .frame(width: 22, height: 22)
                     }
-
+                    
                 })
-                .sheet(isPresented: $colorPicker) {
-                    ColorPicker("Pick Color", selection: $color)
-                        .padding()
-                }
         }
     }
     
     func saveImage() {
-        //getting image from canvas
         
+        //getting image from canvas
         let image = canvas.drawing.image(from: canvas.drawing.bounds, scale: 1)
         
         // saving to album
-        
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
     }
 }
