@@ -38,7 +38,7 @@ struct Home: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(leading: Button(action: {
                    
-                    //saving image
+                    saveImage()
                    
                 }, label: {
                     Image(systemName: "square.and.arrow.down.fill")
@@ -112,6 +112,16 @@ struct Home: View {
                         .padding()
                 }
         }
+    }
+    
+    func saveImage() {
+        //getting image from canvas
+        
+        let image = canvas.drawing.image(from: canvas.drawing.bounds, scale: 1)
+        
+        // saving to album
+        
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
     }
 }
 
