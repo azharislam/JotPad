@@ -11,6 +11,7 @@ import PencilKit
 struct ContentView: View {
     var body: some View {
         Home()
+            .preferredColorScheme(.light)
     }
 }
 
@@ -27,6 +28,7 @@ struct Home: View {
     @State var color: Color = .black
     @State var type: PKInkingTool.InkType = .pencil
     @State var colorPicker = false
+    @State var saved = false
     
     // default medium is Pen
     
@@ -37,11 +39,13 @@ struct Home: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(leading: Button(action: {
                     saveImage()
-                    
                 }, label: {
                     Image("download")
                         .resizable()
                         .frame(width: 22, height: 22)
+                        .alert(isPresented: $saved) {
+                            Alert(title: Text("Saved"), message: Text("Stored in Photos"))
+                        }
                 }), trailing: HStack(spacing: 15){
                     
                     Button(action: {
@@ -113,6 +117,7 @@ struct Home: View {
         
         // saving to album
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        saved = true
     }
 }
 
