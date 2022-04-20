@@ -11,3 +11,8 @@ Will need Xcode 12 and above.
 ```bash
 git clone https://github.com/azharislam/JotPad.git
 ```
+
+
+## Screenshots
+
+[![Screenshot-2022-04-20-at-06-06-15.png](https://i.postimg.cc/522bKRWg/Screenshot-2022-04-20-at-06-06-15.png)](https://postimg.cc/dLpbLn1Z)
